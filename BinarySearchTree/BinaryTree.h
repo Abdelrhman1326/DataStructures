@@ -1,7 +1,3 @@
-//
-// Created by user on 3/17/2026.
-//
-
 #ifndef BINARYTREE_H
 #define BINARYTREE_H
 
