@@ -15,14 +15,12 @@ template<typename T>
 void Queue<T>::enqueue(const T &value) {
    assert(!full() && "The queue is full!");
 
+   // If the queue was completely empty, we need to initialize frontIndex to 0
    if (empty()) {
       frontIndex = 0;
-      backIndex = 0;
-      arr[backIndex] = value;
-      count++;
-      return;
    }
 
+   // Advance backIndex circularly and insert
    backIndex = (backIndex + 1) % capacity;
    arr[backIndex] = value;
    count++;
@@ -32,13 +30,16 @@ template<typename T>
 void Queue<T>::dequeue() {
    assert(!empty() && "The queue is empty!");
 
-   frontIndex = (frontIndex + 1) % capacity;
-   count--;
-
-   if (count == 0) {
+   // If we are removing the very last item, reset the queue to initial empty state
+   if (count == 1) {
       frontIndex = -1;
       backIndex = -1;
+   } else {
+      // Otherwise, just advance the frontIndex circularly
+      frontIndex = (frontIndex + 1) % capacity;
    }
+   
+   count--;
 }
 
 template<typename T>
